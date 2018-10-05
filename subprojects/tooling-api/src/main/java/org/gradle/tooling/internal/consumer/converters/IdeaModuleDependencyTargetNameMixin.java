@@ -17,9 +17,10 @@
 package org.gradle.tooling.internal.consumer.converters;
 
 import org.gradle.tooling.model.idea.IdeaDependency;
-import org.gradle.tooling.model.idea.IdeaModule;
-import org.gradle.tooling.model.idea.IdeaModuleDependency;
 
+/**
+ * This is used for compatibility with clients <2.14
+ */
 public class IdeaModuleDependencyTargetNameMixin {
     private final IdeaDependency ideaModuleDependency;
 
@@ -28,14 +29,9 @@ public class IdeaModuleDependencyTargetNameMixin {
     }
 
     public String getTargetModuleName() {
-        if (ideaModuleDependency instanceof IdeaModuleDependency) {
-            IdeaModuleDependency dependency = (IdeaModuleDependency) ideaModuleDependency;
-            try {
-                IdeaModule dependencyModule = (IdeaModule) dependency.getClass().getMethod("getDependencyModule").invoke(dependency);
-                return dependencyModule.getName();
-            } catch (Exception e) {
-                return null;
-            }
+        if (ideaModuleDependency instanceof BackwardsCompatibleIdeaModuleDependency) {
+            BackwardsCompatibleIdeaModuleDependency dependency = (BackwardsCompatibleIdeaModuleDependency) ideaModuleDependency;
+            return dependency.getDependencyModule().getName();
         }
         return null;
     }

@@ -75,6 +75,9 @@ public class ConsumerTargetTypeProvider implements TargetTypeProvider {
                 return CppStaticLibrary.class.asSubclass(initialTargetType);
             }
         }
+        if (initialTargetType == IdeaModuleDependency.class) {
+            return BackwardsCompatibleIdeaModuleDependency.class.asSubclass(initialTargetType);
+        }
 
         return initialTargetType;
     }
