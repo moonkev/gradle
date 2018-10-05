@@ -65,7 +65,7 @@ public class ZincScalaCompilerFactory {
         try {
             final File cacheDir = zincCache.getBaseDir();
 
-            final String userSuppliedZincDir = System.getProperty("zinc.dir");
+            final String userSuppliedZincDir = System.getProperty(ZincScalaCompilerUtil.ZINC_DIR_SYSTEM_PROPERTY);
             if (userSuppliedZincDir != null && !userSuppliedZincDir.equals(cacheDir.getAbsolutePath())) {
                 LOGGER.warn(ZincScalaCompilerUtil.ZINC_DIR_IGNORED_MESSAGE);
             }
